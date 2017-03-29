@@ -8,6 +8,8 @@ package Agenda;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -15,9 +17,8 @@ import java.io.InputStreamReader;
  */
 public class Agenda {
 
-    Contactos aContactos[] = new Contactos[10];
+    ArrayList<Contactos> aContactos = new ArrayList<Contactos>();
     BufferedReader tec = new BufferedReader(new InputStreamReader(System.in));
-    
 
     public void añadircontacto() {
         try {
@@ -41,11 +42,11 @@ public class Agenda {
 
             int i;
 
-            for (i = 0; i < aContactos.length && aContactos[i] != null; i++) {
+            for (i = 0; i < aContactos.size() && aContactos.get(i) != null; i++) {
             }
 
-            if (i < aContactos.length - 1) {
-                aContactos[i] = contacto;
+            if (i < aContactos.size() - 1) {
+                aContactos.set(i, contacto);
             } else {
                 System.out.println("La agenda está llena");
             }
@@ -57,27 +58,79 @@ public class Agenda {
 
     ;
     public void eliminarcontacto() {
-        
-        try{
-        String nombre;
-        System.out.println("Introduce nombre del contacto a eliminar");
-        nombre = tec.readLine();
-        
-        for()
-        
-        }catch (IOException ex) {
+
+        try {
+            int posicion = 1;
+            String nombre;
+            System.out.println("Introduce nombre del contacto a eliminar");
+            nombre = tec.readLine();
+
+            ArrayList<Integer> aIndexBorrados = new ArrayList<Integer>();
+
+            for (int i = 0; i < aContactos.size(); i++) {
+
+                if (aContactos.get(i).getNombre().equalsIgnoreCase(nombre)) {
+
+                    System.out.println(posicion + ".");
+                    System.out.println(aContactos.get(i));
+
+                    aIndexBorrados.add(i);
+                    posicion++;
+                }
+            }
+
+            System.out.println("HEMOS LLEGADO");
+
+            System.out.println("\nSeleccione el numero a borrar");
+            int borrar;
+            borrar = Integer.parseInt(tec.readLine());
+
+            System.out.println("borrar vale " + borrar);
+
+            borrar = borrar - 1;
+            int var2 = aIndexBorrados.get(borrar);
+
+            aContactos.remove(var2);
+
+        } catch (IOException ex) {
             System.err.println("error de entrada" + ex.getMessage());
         }
 
     }
 
     ;
-    public void busqueda(String nombre) {
+    public void busqueda() throws IOException {
+        int posicion = 1;
+        String nombre;
+        System.out.println("Introduce nombre del contacto");
+        nombre = tec.readLine();
+
+        for (int i = 0; i < aContactos.size(); i++) {
+
+            if (aContactos.get(i).getNombre().equalsIgnoreCase(nombre)) {
+                System.out.println(posicion + ".");
+                System.out.println(aContactos.get(i));
+                posicion++;
+            }
+        }
+
     }
 
     ;
-    public void consulta() {
+    public void consulta() throws IOException {
+        
     }
-;
 
+    ;
+    public void mostraragenda() {
+        for (int i = 0; i < aContactos.size() && aContactos != null; i++) {
+            System.out.println(aContactos.get(i));
+        }
+
+    }
+
+    public void añadir(Contactos e){
+        aContactos.add(e);
+    }
 }
+
