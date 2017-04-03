@@ -5,22 +5,25 @@
  */
 package Agenda;
 
+import java.io.Serializable;
+import java.util.*;
+
 /**
  *
  * @author AlumMati
  */
-public class Contactos {
+public class Contactos implements Serializable{
     
     private String nombre;
     private String direccion;
     private int telefono;
-    private String fnacimiento;
+    private Calendar fnacimiento;
     private String notas;
     
     
     
     public Contactos(){};
-    public Contactos(String n, String d, int t, String fn, String not){
+    public Contactos(String n, String d, int t, Calendar fn, String not){
         nombre = n;
         direccion = d;
         telefono = t;
@@ -89,14 +92,14 @@ public class Contactos {
     /**
      * @return the fnacimiento
      */
-    public String getFnacimiento() {
+    public Calendar getFnacimiento() {
         return fnacimiento;
     }
 
     /**
      * @param fnacimiento the fnacimiento to set
      */
-    public void setFnacimiento(String fnacimiento) {
+    public void setFnacimiento(Calendar fnacimiento) {
         this.fnacimiento = fnacimiento;
     }
 

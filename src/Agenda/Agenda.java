@@ -5,18 +5,18 @@
  */
 package Agenda;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.io.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  *
  * @author AlumMati
  */
 public class Agenda {
-
+    
     ArrayList<Contactos> aContactos = new ArrayList<Contactos>();
     BufferedReader tec = new BufferedReader(new InputStreamReader(System.in));
 
@@ -25,7 +25,7 @@ public class Agenda {
             String n;
             String d;
             int t;
-            String f;
+            Calendar f;
             String nt;
             System.out.println("Introduce nombre");
             n = tec.readLine();
@@ -34,22 +34,18 @@ public class Agenda {
             System.out.println("Introduce teléfono");
             t = Integer.parseInt(tec.readLine());
             System.out.println("Introduce Fecha nacimiento");
-            f = tec.readLine();
+            
+            
+            
+            
+            
             System.out.println("Introduce notas");
             nt = tec.readLine();
 
+            
             Contactos contacto = new Contactos(n, d, t, f, nt);
-
-            int i;
-
-            for (i = 0; i < aContactos.size() && aContactos.get(i) != null; i++) {
-            }
-
-            if (i < aContactos.size() - 1) {
-                aContactos.set(i, contacto);
-            } else {
-                System.out.println("La agenda está llena");
-            }
+            
+            aContactos.add(contacto);
 
         } catch (IOException ex) {
             System.err.println("error de entrada" + ex.getMessage());
@@ -123,7 +119,7 @@ public class Agenda {
 
     ;
     public void mostraragenda() {
-        for (int i = 0; i < aContactos.size() && aContactos != null; i++) {
+        for (int i = 0; i < aContactos.size(); i++) {
             System.out.println(aContactos.get(i));
         }
 
@@ -132,5 +128,60 @@ public class Agenda {
     public void añadir(Contactos e){
         aContactos.add(e);
     }
+    
+    
+    public void leerfichero() throws IOException, ClassNotFoundException, FileNotFoundException {
+        
+        File f = new File("contactos.txt");
+
+       
+            FileInputStream fis = new FileInputStream(f);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            aContactos = (ArrayList<Contactos>)ois.readObject();
+
+            fis.close();
+        
+    }
+
+    public void guardarfichero() throws IOException, ClassNotFoundException {
+  
+        File f = new File("contactos.txt");
+
+        FileOutputStream fos = new FileOutputStream(f);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+        oos.writeObject(aContactos);
+        
+        fos.close();
+    }
+    
+    
+    public void mostrarcumpleaños() throws ParseException{
+    
+        
+        
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        String fechaActual = formato.format(fechita.getTime());
+        
+        
+        
+        for(int i=0; i<aContactos.size();i++){
+            
+            DateFormat formatoContactoFecha = new SimpleDateFormat("dd/MM/yyyy");            
+            Date fcontacto = formatoContactoFecha.parse(aContactos.get(i).getFnacimiento());
+            
+            
+            
+            
+            
+            
+        }
+        
+    }
+    
+    
+    
+    
 }
 
